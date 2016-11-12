@@ -1,6 +1,7 @@
 shop_list = {}
+i = 1
 loop do
-
+  id = i
   puts "Введите название товара"
   item_name = gets.chomp
 
@@ -12,14 +13,16 @@ loop do
   puts "Укажите количество товара"
   item_count = gets.chomp.to_f
 
-  shop_list[item_name] = { price: item_price, count: item_count}
+  shop_list[id] = { name: item_name, price: item_price, count: item_count}
+
+  i +=  1
 
 end
-
 all_price = []
 
-shop_list.each {|name, val| puts "Сумма за #{name}: #{val[:price] * val[:count]}"
+shop_list.each {|id, val| puts "Сумма за #{id} - #{val[:name]}: #{val[:price] * val[:count]}"
   all_price << val[:price] * val[:count]
 }
 total = all_price.inject(0) { |sum, price| sum + price }
+
 puts "Итого потрачено #{total}"

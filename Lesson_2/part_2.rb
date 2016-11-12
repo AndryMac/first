@@ -1,7 +1,3 @@
 array = []
-for number in 10..100
-  if number % 5 == 0
-    array << number
-  end
-end
+0.step(100, 5){|num| array << num}
 print array

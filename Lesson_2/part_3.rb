@@ -1,14 +1,7 @@
-array = []
+array = [1]
 loop do
-  if array.empty?
-    array << 1
-  end
-  last = array[-1].to_i
-  pre_last = array[-2].to_i
-  array << (last + pre_last)
-  if array[-1] > 100
-    array.delete_at(-1)
-  end
-  break if (last + pre_last) > 100
+  array << array[-1] if array.length == 1
+  array << (array[-1] + array[-2])
+  break if (array[-1] + array[-2]) > 100
 end
 puts array
