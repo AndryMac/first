@@ -1,7 +1,7 @@
 shop_list = {}
-i = 1
+id = 1
 loop do
-  id = i
+
   puts "Введите название товара"
   item_name = gets.chomp
 
@@ -15,7 +15,7 @@ loop do
 
   shop_list[id] = { name: item_name, price: item_price, count: item_count}
 
-  i +=  1
+  id +=  1
 
 end
 all_price = []
