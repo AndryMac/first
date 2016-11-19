@@ -1,58 +1,58 @@
-require './route'
-require './station'
-require './train'
+require_relative 'route'
+require_relative'station'
+require_relative 'train'
 
 
-perm = Station.new("Perm")
+list1 = Route.new("Perm", "Moskow")
+list1.add_station("Kazan")
+list1.add_station("Perm")
+list1.add_station("Novgogrod")
+list1.add_station("Penza")
+list1.remove_station("kava")
+list1.remove_station("Perm")
+list1.remove_station("Kazan")
+list1.show_list_station
 
-route_1 = Route.new("Perm", "Moskow")
-route_1.first_station
-route_1.last_station
-route_1.add_medium_station("Perm")
-route_1.add_medium_station("Pskov")
-route_1.add_medium_station("Novgorod")
-route_1.see_all_station
-route_1.del_medium_station("Perm")
-route_1.del_medium_station("Pskov")
-route_1.see_all_station
-puts
-route_2 = Route.new("Perm", "Spb")
-route_2.add_medium_station("Kirov")
-route_2.add_medium_station("Kazan")
-route_2.add_medium_station("Moskow")
-puts
-train_1 = Train.new(1465, "pass", 6)
-train_1.add_speed(20)
-train_1.del_speed
-train_1.see_lenght
-train_1.del_lenght
-train_1.add_speed(70)
-train_1.see_speed
-train_1.route(route_1)
-train_1.see_curent_station
-train_1.next_route_station
-train_1.see_curent_station
-train_1.next_route_station
-train_1.see_curent_station
-train_1.next_route_station
-train_1.prev_route_station
-train_1.see_curent_station
-puts
-train_1.see_next_station
-train_1.prev_route_station
-train_1.see_next_station
-train_2 = Train.new(553, "cargo", 28)
-train_2.route(route_2)
-train_3 = Train.new(1583, "cargo", 15)
-train_3.route(route_1)
-puts
-perm.add_train(train_1)
-puts
-perm.add_train(train_2)
-perm.add_train(train_3)
-perm.see_type_cargo
-perm.see_type_pass
-perm.see_all_trains
-puts
-perm.del_train(553)
-perm.see_all_trains
+list2 = Route.new("Perm", "Spb")
+list2.add_station("Kirov")
+list2.add_station("Pskov")
+list2.add_station("Moskow")
+list2.show_list_station
+
+
+
+
+train1 = Train.new(123, :passenger)
+train1.change_speed(70)
+train1.show_speed
+train1.add_wagon
+train1.down_speed
+train1.add_wagon
+train1.show_speed
+train1.show_wagons_count
+train1.del_wagon
+train1.del_wagon
+train1.del_wagon
+train1.del_wagon
+train1.show_wagons_count
+train1.set_route(list1)
+train1.show_prev_station
+train1.show_next_station
+train1.move_prev_station
+train1.move_next_station
+train1.show_prev_station
+train1.show_next_station
+train2 = Train.new(356, :cargo)
+train2.set_route(list1)
+train3 = Train.new(7789, :cargo)
+train3.set_route(list1)
+
+station1 = Station.new("Perm")
+station1.take_train(train1)
+station1.take_train(train2)
+station1.take_train(train3)
+station1.show_all_trains
+station1.show_type_trains
+station1.remove_train(356)
+station1.show_all_trains
+

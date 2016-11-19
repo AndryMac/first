@@ -1,60 +1,34 @@
 class Station
 
-  @@list_trains = []
-
   def initialize(name)
     @name =  name
+    @list_trains = []
   end
 
-  def add_train(train)
-    @@list_trains.push(train)
+  def take_train(train)
+    @list_trains.push(train)
   end
 
-  def see_type
-    @@list_trains.each{|train|
-      if train.type == "cargo"
-        type = "Грузовой"
-      else
-        type = "Пассажирский"
+  def show_all_trains
+
+    if @list_trains.size > 0
+      @list_trains.each do |train|
+        puts "Поезд № #{train.number} - #{train.type_text}"
       end
-      puts "Поезд №#{train.number} - #{type}"
-    }
-  end
-
-  def see_type_cargo
-    cargo_trains = 0
-
-    @@list_trains.each{|train|
-      cargo_trains +=1 if train.type == 'cargo'
-    }
-    puts "На станции #{@name} находится #{cargo_trains} грузовых поезда(ов)"
-  end
-
-  def see_type_pass
-    pass_trains = 0
-
-    @@list_trains.each{|train|
-      pass_trains +=1 if train.type == 'pass'
-    }
-    puts "На станции #{@name} находится #{pass_trains} пассажирских поезда(ов)"
-  end
-
-
-  def see_all_trains
-
-    if @@list_trains.size > 0
-      puts "На станции находятся поезда под номерами:"
-      @@list_trains.each{|train|
-        puts train.number
-      }
     else
       puts "На станции нет поездов"
     end
 
   end
 
-  def del_train(number_train)
-     @@list_trains.delete_if{ |train| train.number == number_train }
+  def show_type_trains
+    cargo_trains = @list_trains.select { |train| train.type == :cargo }.size
+    passenger_trains = @list_trains.select { |train| train.type == :passenger }.size
+    puts "На станции #{@name}: #{passenger_trains} - пассажирских поезда и #{cargo_trains} - грузовых "
+  end
+
+  def remove_train(number)
+    @list_trains.delete_if{ |train| train.number == number }
   end
 
 end

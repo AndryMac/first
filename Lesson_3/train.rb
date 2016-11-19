@@ -1,107 +1,104 @@
 class Train
 
-  @@default_speed = 0
+  TYPES = { cargo: 'Грузовой', passenger: 'Пассажирский' }
 
-  def initialize(number, type, lenght)
-    @train = [number, type, lenght, @@default_speed]
+  attr_accessor :number, :type, :wagons, :speed, :set_route, :curent_station, :next_station, :prev_station
+
+  def initialize(number, type, wagons = 2, speed = 0)
+    @number = number
+    @type = type
+    @wagons = wagons
+    @speed = speed
   end
 
-  def number
-    @train[0]
+  def type_text
+    TYPES[@type]
   end
 
-  def type
-    @train[1]
+  def show_speed
+    puts "Текущая скорость поезда №#{number} - #{@speed}"
   end
 
-  def add_speed(add_spped)
-    @train[3] =  add_spped
+  def change_speed(speed)
+    @speed = speed
+    puts "Скорость поезда №#{number} увеличина до #{@speed}"
   end
 
-  def see_speed
-    puts "Текущая скорость поезда №#{@train[0]} - #{@train[3]} км/ч."
+  def down_speed
+    @speed = 0
+    puts "Скорость поезда №#{number} снижена до #{@speed}"
   end
 
-  def del_speed
-    @train[3] = @@default_speed
+  def show_wagons_count
+    puts "У поезда №#{number} количество вагонов: #{@wagons} шт."
   end
 
-  def see_lenght
-    puts "Количество вагонов у поезда №#{@train[0]} - #{@train[2]} шт."
-  end
-
-  def add_lenght
-    if @train[3] == 0
-      @train[2] += 1
-      puts "К составу №#{@train[0]} добавлен 1 вагон"
-    else
-      puts "Нельзя присоеденить вагон к составу пока он находится в движении."
+  def add_wagon
+    if @speed == 0
+      @wagons +=1
+      puts "К поезду №#{number} добавлени 1 вагон"
+    else puts "Пока поезд в движении вагоны добавить нельзя"
     end
   end
 
-  def del_lenght
-    if @train[3] == 0
-      @train[2] -= 1
-      puts "У состава №#{@train[0]} убавлен 1 вагон"
-    else
-      puts "Нельзя отсоеденить вагон у состава пока он находится в движении."
+  def del_wagon
+    if @speed == 0 && @wagons > 0
+      @wagons -=1
+      puts "От поезда №#{number} отцеплен 1 вагон"
+    elsif @wagons == 0
+      puts "У состава №#{number} вагонов нет"
+    else puts "Пока поезд в движении вагон отцепить нельзя"
     end
   end
 
-  def route(route)
-    @route = route
-    @train[4] = @route.list_station #Получаем путевой лист для поезда
-    @train[5] = @train[4].first #Первый элемент массива пути - текущая станция по дефолту (начало пути)
+  def set_route(route)
+    @set_route = route
+    @curent_station = @set_route.first_station
+  end
+
+  def curent_station
+    @curent_station
   end
 
 
-  def next_route_station
-
-    @curent_index = @train[4].index{ |x| x == @train[5]} #Получаем индекс текущей станции
-    if @train[4].size - 1 != @curent_index
-      @curent_index +=1
-      @train[5] = @train[4].fetch(@curent_index) #Присваиваем в массив значение ткущей станции
+  def next_station
+    if @set_route.index_station(@curent_station) == @set_route.index_station(@set_route.last_station)
+      "Станция #{@curent_station} конечная"
     else
-      puts "Поезд находится на конечной станции"
+      @next_index = @set_route.index_station(@curent_station) + 1
+      set_route = @set_route.list_station
+      @next_station = set_route.fetch(@next_index)
+      "Следующая станция #{@next_station}"
+    end
+  end
+
+  def show_next_station
+    puts next_station
+  end
+
+  def move_next_station
+    @curent_station = @next_station
+  end
+
+  def prev_station
+    if @set_route.index_station(@curent_station) == @set_route.index_station(@set_route.first_station)
+      "Станция #{@curent_station} начальная"
+    else
+      @prev_index = @set_route.index_station(@curent_station) - 1
+      set_route = @set_route.list_station
+      @prev_station = set_route.fetch(@prev_index)
+      "Предыдущая станция #{@prev_station}"
     end
 
   end
 
-  def prev_route_station
-
-    @curent_index = @train[4].index{ |x| x == @train[5]} #Получаем индекс текущей станции
-    if @curent_index == 0
-      puts "Поезд находится на начальной станции"
-
-    else
-      @curent_index -=1
-      @train[5] = @train[4].fetch(@curent_index) #Присваиваем в массив значение ткущей станции
-    end
-
+  def show_prev_station
+    puts prev_station
   end
 
-
-  def see_curent_station
-    puts "Текущая станция #{@train[5]}"
+  def move_prev_station
+    @curent_station = @prev_station
   end
 
-  def see_next_station
-    if @train[4].size - 1 != @curent_index
-      @next = @train[4].fetch(@curent_index + 1)
-      puts "Следующая станция #{@next}"
-    else
-      puts "Поезд находится на конечной станции"
-    end
-  end
-
-  def see_prev_station
-    if @curent_index == 0
-      puts "Поезд находится на начальной станции"
-    else
-      @curent_index -=1
-      @prew = @train[4].fetch(@curent_index)
-      puts "Предыдущая станция #{@prew}"
-    end
-  end
 
 end
