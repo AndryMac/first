@@ -11,13 +11,13 @@ list1.add_station("Penza")
 list1.remove_station("kava")
 list1.remove_station("Perm")
 list1.remove_station("Kazan")
-list1.show_list_station
+list1.show_list_stations
 
 list2 = Route.new("Perm", "Spb")
 list2.add_station("Kirov")
 list2.add_station("Pskov")
 list2.add_station("Moskow")
-list2.show_list_station
+list2.show_list_stations
 
 
 
@@ -37,9 +37,12 @@ train1.del_wagon
 train1.show_wagons_count
 train1.set_route(list1)
 train1.show_prev_station
+
+train1.move_next_station
+train1.show_next_station
+
 train1.show_next_station
 train1.move_prev_station
-train1.move_next_station
 train1.show_prev_station
 train1.show_next_station
 train2 = Train.new(356, :cargo)
@@ -53,6 +56,6 @@ station1.take_train(train2)
 station1.take_train(train3)
 station1.show_all_trains
 station1.show_type_trains
-station1.remove_train(356)
+station1.remove_train(train2)
 station1.show_all_trains
 

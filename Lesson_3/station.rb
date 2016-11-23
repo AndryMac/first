@@ -10,15 +10,11 @@ class Station
   end
 
   def show_all_trains
-
-    if @list_trains.size > 0
-      @list_trains.each do |train|
-        puts "Поезд № #{train.number} - #{train.type_text}"
-      end
-    else
-      puts "На станции нет поездов"
+    @list_trains.each do |train|
+      puts "Поезд № #{train.number} - #{train.type_text}"
     end
 
+    puts "На станции нет поездов"   if @list_trains.size == 0
   end
 
   def show_type_trains
@@ -27,8 +23,8 @@ class Station
     puts "На станции #{@name}: #{passenger_trains} - пассажирских поезда и #{cargo_trains} - грузовых "
   end
 
-  def remove_train(number)
-    @list_trains.delete_if{ |train| train.number == number }
+  def remove_train(train)
+    @list_trains.delete(train)
   end
 
 end

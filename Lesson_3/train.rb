@@ -37,7 +37,8 @@ class Train
     if @speed == 0
       @wagons +=1
       puts "К поезду №#{number} добавлени 1 вагон"
-    else puts "Пока поезд в движении вагоны добавить нельзя"
+    else
+      puts "Пока поезд в движении вагоны добавить нельзя"
     end
   end
 
@@ -47,28 +48,23 @@ class Train
       puts "От поезда №#{number} отцеплен 1 вагон"
     elsif @wagons == 0
       puts "У состава №#{number} вагонов нет"
-    else puts "Пока поезд в движении вагон отцепить нельзя"
+    else
+      puts "Пока поезд в движении вагон отцепить нельзя"
     end
   end
 
   def set_route(route)
-    @set_route = route
-    @curent_station = @set_route.first_station
-  end
-
-  def curent_station
-    @curent_station
+    @route = route
+    @curent_station = @route.first_station
   end
 
 
   def next_station
-    if @set_route.index_station(@curent_station) == @set_route.index_station(@set_route.last_station)
+    if @curent_station == @route.last_station
       "Станция #{@curent_station} конечная"
     else
-      @next_index = @set_route.index_station(@curent_station) + 1
-      set_route = @set_route.list_station
-      @next_station = set_route.fetch(@next_index)
-      "Следующая станция #{@next_station}"
+      @route.index_next_station(@curent_station)
+      "Следующая станция #{@route.next_station}"
     end
   end
 
@@ -77,17 +73,16 @@ class Train
   end
 
   def move_next_station
-    @curent_station = @next_station
+     @route.index_next_station(@curent_station)
+     @curent_station = @route.next_station
   end
 
   def prev_station
-    if @set_route.index_station(@curent_station) == @set_route.index_station(@set_route.first_station)
+    if @curent_station == @route.first_station
       "Станция #{@curent_station} начальная"
     else
-      @prev_index = @set_route.index_station(@curent_station) - 1
-      set_route = @set_route.list_station
-      @prev_station = set_route.fetch(@prev_index)
-      "Предыдущая станция #{@prev_station}"
+      @route.index_prev_station(@curent_station)
+      "Предыдущая станция #{@route.prev_station}"
     end
 
   end
@@ -97,7 +92,8 @@ class Train
   end
 
   def move_prev_station
-    @curent_station = @prev_station
+    @route.index_prev_station(@curent_station)
+    @curent_station = @route.prev_station
   end
 
 
