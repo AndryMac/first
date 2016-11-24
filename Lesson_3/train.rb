@@ -54,17 +54,18 @@ class Train
   end
 
   def set_route(route)
-    @route = route
-    @curent_station = @route.first_station
+    @route = route.list_stations
+    @curent_station = @route.first
   end
 
 
   def next_station
-    if @curent_station == @route.last_station
+    if @curent_station == @route.last
       "Станция #{@curent_station} конечная"
     else
-      @route.index_next_station(@curent_station)
-      "Следующая станция #{@route.next_station}"
+      @next_index = @route.index(@curent_station).next
+      "Следующая станция #{@route.fetch(@next_index)}"
+
     end
   end
 
@@ -73,16 +74,15 @@ class Train
   end
 
   def move_next_station
-     @route.index_next_station(@curent_station)
-     @curent_station = @route.next_station
+    @curent_station = @route.fetch(@next_index)
   end
 
   def prev_station
-    if @curent_station == @route.first_station
+    if @curent_station == @route.first
       "Станция #{@curent_station} начальная"
     else
-      @route.index_prev_station(@curent_station)
-      "Предыдущая станция #{@route.prev_station}"
+      @pred_index = @route.index(@curent_station).pred
+      "Предыдущая станция #{@route.fetch(@pred_index)}"
     end
 
   end
@@ -92,8 +92,7 @@ class Train
   end
 
   def move_prev_station
-    @route.index_prev_station(@curent_station)
-    @curent_station = @route.prev_station
+    @curent_station = @route.fetch(@pred_index)
   end
 
 

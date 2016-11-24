@@ -23,6 +23,7 @@ list2.show_list_stations
 
 
 train1 = Train.new(123, :passenger)
+train1.set_route(list1)
 train1.change_speed(70)
 train1.show_speed
 train1.add_wagon
@@ -35,16 +36,15 @@ train1.del_wagon
 train1.del_wagon
 train1.del_wagon
 train1.show_wagons_count
-train1.set_route(list1)
-train1.show_prev_station
-
+train1.show_next_station
 train1.move_next_station
-train1.show_next_station
-
-train1.show_next_station
-train1.move_prev_station
 train1.show_prev_station
-train1.show_next_station
+train1.move_prev_station
+train1.move_prev_station
+train1.move_prev_station
+
+
+
 train2 = Train.new(356, :cargo)
 train2.set_route(list1)
 train3 = Train.new(7789, :cargo)
