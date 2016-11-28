@@ -31,8 +31,7 @@ class Train
 
 
   def add_wagon(wagon)
-
-    if wagon.instance_of?(PassengerWagon) && @speed == 0
+    if @speed == 0
       @wagons << wagon
       puts "К поезду №#{number} добавлени 1 вагон"
     else

@@ -75,9 +75,8 @@ wagon13 = Wagon.new(:cargo)
 wagon14 = PassengerWagon.new
 wagon15 = CargoWagon.new
 
-
+train1 = PassengerTrain.new(123456)
+train1.add_wagon(wagon14)
 train1.add_wagon(wagon15)
-p wagon11
-p wagon14
-p wagon15
+
 p train1
