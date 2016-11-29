@@ -40,10 +40,11 @@ class Train
   end
 
   def del_wagon
-    if @speed == 0 && @wagons > 0
-      @wagons -=1
+    if @speed == 0 && @wagons.size > 0
+
+      @wagons.delete_at(-1)
       puts "От поезда №#{number} отцеплен 1 вагон"
-    elsif @wagons == 0
+    elsif @wagons.size == 0
       puts "У состава №#{number} вагонов нет"
     else
       puts "Пока поезд в движении вагон отцепить нельзя"
