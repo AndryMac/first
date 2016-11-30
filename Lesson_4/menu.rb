@@ -23,23 +23,15 @@ class Menu
       when 3
         show_stations
       when 4
-        create_train
+        show_trains
       when 5
-        add_wagon
+        create_train
       when 6
+        add_wagon
+      when 7
         del_wagon
       when 8
-        show_trains
-      when 15
         take_train
-      when 100
-        show_stations2
-
-      when 11
-        show_wagons
-      when 99
-        show_trains2
-
       else
         puts "Программа завершена"
     end
@@ -49,7 +41,8 @@ class Menu
   end
   end
 
-
+  private
+  
 
   def help
     puts "
@@ -59,25 +52,13 @@ class Menu
         Станции:
         [2] - Создание станции
         [3] - Посмотреть список станций
+        [4] - Посмотреть список поездов на станции
         ----------------------
         Поезда:
-        [4] - Создать поезд
-        [5] - Добавить вагон
-        [6] - Убрать вагон
-        [15] - Поместить поезд на станцию
-        [7] - Добавить маршрут поезду
-        [8] - Посмотреть список поездов
-        [9] - Отправить поезд
-        ----------------------
-        Вагоны:
-        [10] -  Создать вагон
-        [11] - Список вагонов
-        ----------------------
-        Маршруты:
-        [12] - Создать маршрут
-        [13] - Добавить станцию к маршруту
-        [14] - Посмотрть список станций
-        ----------------------
+        [5] - Создать поезд
+        [6] - Добавить вагон
+        [7] - Отцепить вагон
+        [8] - Поместить поезд на станцию
    "
   end
 
@@ -112,7 +93,6 @@ class Menu
     end
   end
 
-
   def add_wagon
     if @trains.last.type == :passenger
       @trains.last.add_wagon(PassengerWagon.new)
@@ -135,16 +115,6 @@ class Menu
     puts "Укажите номер станции, чтобы посмотреть на ней поезда"
     number = gets.chomp.to_i
     @stations[number - 1].show_all_trains
-  end
-
-
-
-  def show_trains2
-    p @trains
-  end
-  def show_stations2
-
-   p @stations
   end
 
 end
