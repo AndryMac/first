@@ -1,21 +1,21 @@
 module InstanceCounter
   def self.included(base)
     base.extend ClassMethods
-    base.send :include, InstanceMethods
+    base.include InstanceMethods
   end
 
   module ClassMethods
 
     def instances
-      self.count
+      @count
     end
 
     protected
     attr_accessor :count
 
     def add
-      self.count = 0 if self.count == nil
-      self.count += 1
+      @count ||= 0
+      @count += 1
     end
   end
 

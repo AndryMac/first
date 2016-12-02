@@ -20,14 +20,14 @@ class Train
     @number = number
     @wagons = []
     @speed = speed
-    @@trains[number] = self
+    @@trains << self
     register_instance
   end
 
 
 
   def self.find(number)
-    @@trains[number]
+    @@trains.select{|train| train.number == number}
   end
 
   def type_text
