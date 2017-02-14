@@ -4,9 +4,10 @@ require_relative 'instance_counter'
 require_relative 'validator'
 
 class Train
+  extend Accessor
   include Producer
   include InstanceCounter
-  include Validator
+  include Validation
 
   TYPES = { cargo: 'Грузовой', passenger: 'Пассажирский' }.freeze
   NUMBER_FORMAT = /^(\w{3}|\d{3})(-)?(\w{2}|\d{2})$/

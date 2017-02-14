@@ -3,7 +3,7 @@ require_relative 'validator'
 
 class Wagon
   include Producer
-  include Validator
+  include Validation
 
   TYPES = { cargo: 'Грузовой', passenger: 'Пассажирский' }.freeze
   TYPES_FORMAT = /^(passenger|cargo)$/

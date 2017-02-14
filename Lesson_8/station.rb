@@ -1,6 +1,8 @@
 require_relative 'validator'
 
 class Station
+  include Validation
+
   STATION_FORMAT = /\w+/i
 
   attr_accessor :name
